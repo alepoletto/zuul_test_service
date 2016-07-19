@@ -16,7 +16,7 @@ import netflix.karyon.servo.KaryonServoModule;
  */
 
 @ArchaiusBootstrap
-@KaryonBootstrap(name = "zuul-test-service")
+@KaryonBootstrap(name = "zuul-test-service", healthcheck = HealthcheckResource.class)
 @Modules(include = {
         ShutdownModule.class,
         BootstrapInjectionModule.KaryonJerseyModuleImpl.class,
@@ -27,7 +27,9 @@ public interface BootstrapInjectionModule {
     class KaryonJerseyModuleImpl extends KaryonJerseyModule {
         @Override
         protected void configureServer() {
-             server().port(7001).threadPoolSize(100);
+
+
+            server().port(7001).threadPoolSize(100);
 
         }
     }
