@@ -27,7 +27,7 @@ public interface BootstrapInjectionModule {
     class KaryonJerseyModuleImpl extends KaryonJerseyModule {
         @Override
         protected void configureServer() {
-             server().port(8989).threadPoolSize(100);
+             server().port(7001).threadPoolSize(100);
 
         }
     }
