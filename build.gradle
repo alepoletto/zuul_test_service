@@ -1,0 +1,55 @@
+group 'zuul-test-service'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: "application"
+sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+sourceSets {
+    main.java.srcDirs = ["src/main/java"]
+}
+
+mainClassName="com.alepoletto.netflix.zuul.test.server.MainRunner"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/groups/public/"
+    }
+}
+
+applicationDefaultJvmArgs = ["-Deureka.serviceUrl.default=http://eureka.us-west-2.test.oneplatform.build:8080/v2/"]
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2'
+}
+
+dependencies {
+    compile([
+
+            // karyon 2.2.0-rc.2
+
+            'com.google.inject:guice:3.0',
+            'org.slf4j:slf4j-api:1.7.0',
+            'org.slf4j:slf4j-simple:1.7.0',
+            'org.codehaus.jettison:jettison:1.2',
+
+            'com.netflix.karyon:karyon2-core:2.7.0',
+            'com.netflix.karyon:karyon2-jersey-blocking:2.7.0',
+            'com.netflix.karyon:karyon2-archaius:2.7.0',
+            'com.netflix.karyon:karyon2-servo:2.7.0',
+            'com.netflix.karyon:karyon2-admin-web:2.7.0',
+            'com.netflix.karyon:karyon2-eureka:2.7.0',
+
+            'com.netflix.hystrix:hystrix-core:1.4.20',
+            'com.netflix.hystrix:hystrix-rx-netty-metrics-stream:1.4.20',
+            'com.netflix.hystrix:hystrix-servo-metrics-publisher:1.4.20',
+            'com.netflix.hystrix:hystrix-request-servlet:1.4.20',
+            'com.netflix.hystrix:hystrix-metrics-event-stream:1.4.20'
+
+    ])
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
